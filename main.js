@@ -3,6 +3,7 @@ import canvasSketch from 'canvas-sketch';
 import Line from './premitives/Line';
 import Shape from './premitives/Shape';
 import arrayFrom from './utils/arrayFrom';
+import getImageData from './utils/getImageData';
 
 const settings = {
   dimensions: [1280, 720],
@@ -16,42 +17,34 @@ const sketch = ({ width, height }) => {
   const lines = arrayFrom(() => new Line(), LINES_COUNT);
   const shapes = [];
 
-  // Size of canvas. 
-  const precision = 150;
-  const imageData = Array.from(Array(precision), () => new Array(precision));
-  const imgCanvas = document.createElement('canvas');
+  // This value allows scaling a generated result from image
+  const SCALE = 3;
 
-  imgCanvas.style.display = 'none';
-  imgCanvas.width = precision;
-  imgCanvas.height = precision;
+  // The loaded image will be scaled down to square with
+  // width and height equals to precision. 
+  const PERCISION = 150;
 
-  const imgCanvasContext = imgCanvas.getContext('2d');
-  const image = new Image();
+  // To add more rondom we will not draw every point.
+  // We chouse only thouse points for which condition
+  // Math.random() > RANDOM_BOUNDARY is true
+  const RANDOM_BOUNDARY = 0.3;
 
-  image.src = '/assets/text.png';
-
-  image.onload = function () {
-    imgCanvasContext.drawImage(image, 0, 0, precision, precision);
-
-    const { data } = imgCanvasContext.getImageData(0, 0, precision, precision);
-
-    let x, y;
-    for (let i = 0; i < data.length; i += 4) {
-      x = (i / 4) % precision;
-      y = Math.floor((i / 4) / precision);
-      imageData[x][y] = data[i];
-
-      //  if is black
-      if (imageData[x][y] < 255 && Math.random() > 0.3) {
-        shapes.push(new Shape(
-          (x - precision / 2) * 3,
-          (y - precision / 2) * 3
-        ))
+  // Generate shapes in place of black pixels from an image
+  getImageData({
+     imageUrl: '/assets/text.png',
+     precision: PERCISION,
+  }).then(imageData => {
+    for (let x = 0; x < imageData.length; x++) {
+      for (let y = 0; y < imageData[x].length; y++) {
+        if (imageData[x][y] < 255 && Math.random() > RANDOM_BOUNDARY) {
+          shapes.push(new Shape(
+            (x - PERCISION / 2) * SCALE,
+            (y - PERCISION / 2) * SCALE
+          ))
+        }
       }
     }
-  }
-
-  document.body.appendChild(imgCanvas);
+  });
 
   return ({ context, playhead }) => {
     context.fillStyle = '#000';
