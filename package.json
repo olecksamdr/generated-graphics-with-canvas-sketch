@@ -11,6 +11,7 @@
   },
   "scripts": {
     "start": "npx canvas-sketch main.js --hot --output=gif --stream=gif",
+    "build": "npx canvas-sketch main.js --name index --dir=dist --build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

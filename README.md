@@ -9,3 +9,13 @@ Animation created by following the instructions from the video [ALL YOUR HTML, R
 ```bash
 npm start
 ```
+
+## Build
+```bash
+npm run build
+```
+
+After build you need to copy an `assets` folder inside `dist`.
+
+## TODO:
+- [ ] Create a build script with node.js which will move assets automatically
