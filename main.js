@@ -31,7 +31,7 @@ const sketch = ({ width, height }) => {
 
   // Generate shapes in place of black pixels from an image
   getImageData({
-     imageUrl: '/assets/text.png',
+     imageUrl: 'assets/text.png',
      precision: PERCISION,
   }).then(imageData => {
     for (let x = 0; x < imageData.length; x++) {

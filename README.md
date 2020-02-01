@@ -5,6 +5,9 @@ Animation created by following the instructions from the video [ALL YOUR HTML, R
 
 ![Hello World Text Animation gif](/gif/2020.02.01-09.43.59.gif?raw=true "Hello World Text Animation")
 
+## [Web version](https://olecksamdr.github.io/canvas-sketch-text-with-particles/)
+
+
 ## Run
 ```bash
 npm start
