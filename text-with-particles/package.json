@@ -1,0 +1,19 @@
+{
+  "name": "text-with-particles",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "canvas-sketch": "^0.7.1"
+  },
+  "devDependencies": {
+    "canvas-sketch-cli": "^1.11.7"
+  },
+  "scripts": {
+    "start": "npx canvas-sketch main.js --hot --output=gif --stream=gif",
+    "build": "npx canvas-sketch main.js --name index --dir=dist --build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
